@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function encoding_utf8(ch){
+            if(ch.length==1){
+                var cd=ch.codePointAt();
+                if(cd <=0x007F) return "0"+cd.toString(2);
+                cd=cd.toString(2);
+                var cd_arr=[],cd_len,start_index=-6,end_index;
+                var sub_str=cd.slice(-6);
+                while ((cd_len=sub_str.length)==6) {
+                    cd_arr.push("10"+sub_str);
+                    end_index =start_index;
+                    start_index=start_index-6;
+                    sub_str=cd.slice(start_index,end_index)
+                }
+                cd_arr.push(sub_str);
+                cd_arr.push( "1".repeat(cd_arr.length)+"0".repeat(8-cd_len-cd_arr.length));
+                return  cd_arr.reverse().join('');
+            }
+            return;
+        }
+        console.log(encoding_utf8("免"))
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
